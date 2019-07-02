@@ -1,0 +1,212 @@
+<div class="container-fluid">
+  <button class="btn btn-info add-book" data-toggle="modal" data-target="#myModal" (click)="openModal(template)">添加驾驶员</button>
+  <button class="btn btn-info delete-book" data-toggle="modal" data-target="#myModal2" (click)="deleteDriver()">删除驾驶员</button>
+  <button class="btn btn-info update-book" data-toggle="modal" data-target="#myModal3" (click)="openUpdateModal(template2)">编辑驾驶员信息</button>
+  <div class="dropdown">
+    <button class="btn btn-default size" data-toggle="dropdown">单页数量
+      <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li (click)="changeSize(5)"><a>5</a></li>
+      <li (click)="changeSize(10)"><a>10</a></li>
+      <li (click)="changeSize(20)"><a>20</a></li>
+    </ul>
+  </div>
+  <div class="dropdown">
+    <button class="btn btn-default sort" data-toggle="dropdown">排序方式
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a (click)="changeSort(1)">按Id升序排序</a></li>
+      <li><a (click)="changeSort(0)">按Id降序排序</a></li>
+    </ul>
+  </div>
+  <nav aria-label="Page navigation" class="pages">
+    <ul class="pagination">
+      <li (click)="last()">
+        <a aria-label="Previous" >
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li><a *ngFor="let pagenumber of pageli" (click)="jump( $event )">{{pagenumber}}</a></li>
+      <li (click)="next()">
+        <a aria-label="Next">
+          <span aria-hidden="true" >&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="search-page input-group has-feedback">
+    <div class="input-group-addon">输入页码:</div>
+    <input class="form-control"  [(ngModel)]="currentPage">
+    <div class="input-group-addon glyphicon search" (click)="jumpInput()" >
+      <span class="glyphicon glyphicon-share-alt"></span>
+    </div>
+  </div>
+  <div class="search-tel input-group has-success">
+    <div class="input-group-addon">驾驶员电话:</div>
+    <input class="form-control" type="text" [(ngModel)]="userKeyupTelnumber">
+    <div class="input-group-addon glyphicon search" (click)="telnumberSerachRender()" >
+      <span class="glyphicon glyphicon-search"></span>
+    </div>
+  </div>
+  <div class="search-book input-group has-success">
+    <div class="input-group-addon">驾驶员姓名:</div>
+    <input class="form-control" type="text" [(ngModel)]="userKeyupDrivername">
+    <div class="input-group-addon glyphicon search" (click)="drivernameSearchRender()" >
+      <span class="glyphicon glyphicon-search"></span>
+    </div>
+  </div>
+    <table class="table table-bordered table-hover">
+      <tbody>
+      <tr class="info">
+        <th>选中框</th><th>ID</th><th>姓名</th><th>性别</th><th>电话号码</th><th>生日</th><th>身份证号</th><th>婚姻状况</th><th>公司</th>
+      </tr>
+      <tr *ngFor="let driver of drivers ">
+        <th><input type="checkbox" value=""></th>
+        <th>{{driver.driverid}}</th><th>{{driver.drivername}}</th><th>{{driver.driversex}}</th><th>{{driver.drivertelnumber}}</th>
+        <th>{{driver.driverbirthday}}</th><th>{{driver.driveridentitynumber}}</th><th>{{driver.drivermaritalstatus}}</th><th>{{driver.drivercompany}}</th>
+      </tr>
+      </tbody>
+    </table>
+
+    <!-- Modal:添加驾驶员 -->
+    <ng-template #template>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">添加驾驶员</h4>
+        <button class="close pull-right" type="button" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div [ngClass]="getInputGroupClass(test1)">
+          <div class="input-group-addon" >请输入姓名(必填):</div>
+          <input type="text" class="form-control drivername" [(ngModel)]="drivername" (blur)="checkDrivername()" />
+          <span [ngClass]="getInputClass(test1)"></span>
+        </div>
+        <div class="input-group has-success">
+          <div class="input-group-addon" >请选择性别(必填):</div>
+          <label><input type="radio" name="optionsRadios" id="optionsRadios1" value="男" [(ngModel)]="driversex">男</label>
+          <label><input type="radio" name="optionsRadios" id="optionsRadios2" [(ngModel)]="driversex" value="女">女</label>
+        </div>
+        <div [ngClass]="getInputGroupClass(test2)">
+          <div class="input-group-addon" >请输入电话号码(必填):</div>
+          <input type="text" class="form-control drivertelnumber" [(ngModel)]="drivertelnumber" (blur)="checkDrivertelnumber()" />
+          <span [ngClass]="getInputClass(test2)"></span>
+        </div>
+        <div [ngClass]="getInputGroupClass(test3)">
+          <div class="input-group-addon" >请输入出生日期(必填):</div>
+          <input type="text" class="form-control birthday" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" value="" [ngModel]="birthday" (ngModelChange)="checkBirthday()">
+          <span [ngClass]="getInputClass(test3)"></span>
+        </div>
+        <div [ngClass]="getInputGroupClass(test4)">
+          <div class="input-group-addon" >请输入身份证号(必填):</div>
+          <input type="text" class="form-control driveridentitynumber" [(ngModel)]="driveridentitynumber" (blur)="checkDriveridentitynumber()" />
+          <span [ngClass]="getInputClass(test4)"></span>
+        </div>
+
+        <div class="input-group has-success">
+          <div class="input-group-addon" >请输入婚姻状况(必填):</div>
+          <label><input type="radio" name="status" id="optionsRadios3" value="未婚" [(ngModel)]="drivermaritalstatus">未婚</label>
+          <label><input type="radio" name="status" id="optionsRadios4" value="已婚" [(ngModel)]="drivermaritalstatus">已婚</label>
+        </div>
+        <div [ngClass]="getInputGroupClass(test5)">
+          <div class="input-group-addon" >请输入所属公司(必填):</div>
+          <input type="text" class="form-control drivercompany" [(ngModel)]="drivercompany" (blur)="checkDrivercompany()" />
+          <span [ngClass]="getInputGroupClass(test5)"></span>
+        </div>
+        <div class="input-group has-success">
+          <div class="input-group-addon" >请输入学历(选填):</div>
+          <input type="text" class="form-control academic" [(ngModel)]="driveracademic"/>
+          <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        </div>
+        <div class="input-group has-success">
+          <div class="input-group-addon" >请输入英语水平(选填):</div>
+          <input type="text" class="form-control drivernenglishskills" [(ngModel)]="driverenglishskills" />
+          <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        </div>
+        <div class="input-group has-success">
+          <div class="input-group-addon" >请输入国籍(选填):</div>
+          <input type="text" class="form-control drivernationality" [(ngModel)]="drivernationality" />
+          <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        </div>
+        <div class="picture">
+          <input type="file" id="file" class="btn btn-default"/>
+          <img src=""/>
+        </div>
+        <div class="alert alert-danger text-center">{{condition}}</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalRef.hide()">关闭</button>
+          <button type="button" class="btn btn-info save2" (click)="addDriver()">保存</button>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #template2>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">修改驾驶员信息</h4>
+        <button class="close pull-right" type="button" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div [ngClass]="getInputGroupClass(test6)">
+          <div class="input-group-addon" >驾驶员姓名:</div>
+          <input type="text" class="form-control u-drivername" [(ngModel)]="updateDrivername" (blur)="checkupdateDrivername()" />
+          <span [ngClass]="getInputClass(test6)"></span>
+        </div>
+        <div class="input-group has-success">
+          <div class="input-group-addon" >驾驶员性别:</div>
+          <label><input type="radio" name="optionsRadios" id="u-optionsRadios1" [(ngModel)]="updateDriversex" value="男">男</label>
+          <label><input type="radio" name="optionsRadios" id="u-optionsRadios2" [(ngModel)]="updateDriversex" value="女">女</label>
+        </div>
+        <div [ngClass]="getInputGroupClass(test7)">
+          <div class="input-group-addon" >驾驶员电话号码:</div>
+          <input type="text" class="form-control u-drivertelnumber" [(ngModel)]="updateDrivertelnumber" (blur)="checkUpdateDrivertelnumber()" />
+          <span [ngClass]="getInputClass(test7)"></span>
+        </div>
+        <div [ngClass]="getInputGroupClass(test8)">
+          <div class="input-group-addon" >驾驶员出生日期:</div>
+          <input type="text" class="form-control u-birthday" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"  value="" [ngModel]="updateDriverBirthday" (ngModelChange)="checkUpdateBirthday()">
+          <span [ngClass]="getInputClass(test8)"></span>
+        </div>
+        <div [ngClass]="getInputGroupClass(test9)">
+          <div class="input-group-addon" >驾驶员身份证号:</div>
+          <input type="text" class="form-control u-driveridentitynumber" [(ngModel)]="updateDriveridentitynumber" (blur)="checkUpdateDriveridentitynumber()" />
+          <span [ngClass]="getInputClass(test9)"></span>
+        </div>
+        <div class="input-group has-success">
+          <div class="input-group-addon" >驾驶员婚姻状况:</div>
+          <label><input type="radio" name="status" id="u-optionsRadios3" [(ngModel)]="updateDrivermaritalstatus" value="未婚">未婚</label>
+          <label><input type="radio" name="status" id="u-optionsRadios4" [(ngModel)]="updateDrivermaritalstatus" value="已婚">已婚</label>
+        </div>
+        <div [ngClass]="getInputGroupClass(test10)">
+          <div class="input-group-addon" >驾驶员所属公司:</div>
+          <input type="text" class="form-control u-drivercompany" [(ngModel)]="updateDrivercompany" (blur)="checkUpdateDrivercompany()" />
+          <span [ngClass]="getInputClass(test10)"></span>
+        </div>
+        <div class="input-group has-success">
+          <div class="input-group-addon" >请输入学历:</div>
+          <input type="text" class="form-control u-academic" [(ngModel)]="updateDriveracademic"/>
+          <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        </div>
+        <div class="input-group has-success">
+          <div class="input-group-addon" >驾驶员英语水平:</div>
+          <input type="text" class="form-control u-drivernenglishskills" [(ngModel)]="updateDriverenglishskills" />
+          <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        </div>
+        <div class="input-group has-success">
+          <div class="input-group-addon" >驾驶员国籍:</div>
+          <input type="text" class="form-control u-drivernationality" [(ngModel)]="updateDrivernationality" />
+          <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        </div>
+        <div class="picture">
+          <input type="file" id="file1" name="file1" class="btn btn-default" (change)="updatePicture()"/>
+          <img src=""/>
+        </div>
+        <div class="alert alert-danger text-center">{{condition}}</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalRef.hide()">关闭</button>
+          <button type="button" class="btn btn-info save2" (click)="updateDriver()">保存</button>
+        </div>
+      </div>
+    </ng-template>
+  </div>

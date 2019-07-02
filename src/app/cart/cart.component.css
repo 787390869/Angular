@@ -1,0 +1,121 @@
+.pages ul{
+  display: block;
+  margin: 5px 800px;
+}
+.pages ul li{
+  cursor: pointer;
+}
+table tbody tr th{
+  cursor: pointer;
+  font-family: 幼圆;
+  font-weight: 600;
+}
+.search-book{
+  width: 200px;
+  float: right;
+  margin-top: 5px;
+}
+.search-book input{
+  width: 100px;
+  float: left;
+}
+.search-book .search{
+  position: relative;
+  top: 0px;
+}
+.add-book{
+  float: left;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+.delete-book{
+  float: left;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+.update-book{
+  float: left;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+.table{
+  margin-top: 50px;
+}
+.dropdown{
+  display: block;
+  float: left;
+}
+#optionsRadios1,#u-optionsRadios1{
+  margin-left: 20px;
+  margin-top: 10px;
+}
+#optionsRadios2,#u-optionsRadios2{
+  margin-left: 40px;
+  margin-top: 10px;
+}
+#optionsRadios3,#u-optionsRadios3{
+  margin-left: 20px;
+  margin-top: 10px;
+}
+#optionsRadios4,#u-optionsRadios4{
+  margin-left: 20px;
+  margin-top: 10px;
+}
+.size{
+  margin-left: 20px;
+  margin-top: 5px;
+}
+.dropdown li a{
+  cursor: pointer;
+}
+.sort{
+  margin-left: 20px;
+  margin-top: 5px;
+}
+.picture{
+  width:568px;
+  height:200px;
+}
+.picture input{
+  display: block;
+  float: left;
+  width:200px;
+  height: 200px;
+}
+.picture img{
+  width: 200px;
+  height: 200px;
+  display: block;
+  float: right;
+}
+.search-page {
+  width: 200px;
+  float: left;
+  margin-top: 5px;
+  margin-left: 100px;
+  cursor: pointer;
+}
+.search-page input{
+  width: 100px;
+  float: left;
+}
+.search-page .search{
+  position: relative;
+  top: 0px;
+  cursor: pointer;
+}
+.search-tel{
+  width: 200px;
+  float: right;
+  margin-top: 5px;
+  cursor: pointer;
+}
+.search-tel input{
+  width: 100px;
+  float: left;
+}
+.search-tel .search{
+  position: relative;
+  top: 0px;
+  cursor: pointer;
+}

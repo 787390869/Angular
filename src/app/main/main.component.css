@@ -1,0 +1,15 @@
+.navbar-nav a{
+  cursor: pointer;
+}
+.user{
+  cursor: pointer;
+  float: right;
+  display: block;
+  height: 50px;
+  background: #5bc0de;
+  color: white;
+  text-align: center;
+  vertical-align: center;
+  width: 150px;
+  padding-top: 15px;
+}
