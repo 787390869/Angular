@@ -84,7 +84,7 @@ export class CartComponent implements OnInit {
   updateDrivernationality = '';
   constructor(private route: ActivatedRoute, private http: HttpClient, private modalService: BsModalService , private el: ElementRef) {
     this.getData();
-    this.http.get('Driver/getCountOfDriver').subscribe(data => {
+    this.http.get('api/Driver/getCountOfDriver').subscribe(data => {
       this.count = data;
       this.changePageLi();
     });
@@ -111,7 +111,7 @@ export class CartComponent implements OnInit {
   }
   // 所有数据的渲染
   getData() {
-    this.http.get('Driver/getAllDriver/' + this.currentPage + '/' + this.size + '/' + this.sort).subscribe(data => {
+    this.http.get('api/Driver/getAllDriver/' + this.currentPage + '/' + this.size + '/' + this.sort).subscribe(data => {
       this.drivers = data;
     });
   }
@@ -130,9 +130,9 @@ export class CartComponent implements OnInit {
       drivertelnumber: this.userKeyupTelnumber
     }
     // @ts-ignore
-    this.http.get('Driver/findDriverByTel', {params: requestParam}).subscribe(data => {
+    this.http.get('api/Driver/findDriverByTel', {params: requestParam}).subscribe(data => {
       this.drivers = data ;
-      this.http.get('Driver/drivertelCount', {params: requestParam2}).subscribe(back => {
+      this.http.get('api/Driver/drivertelCount', {params: requestParam2}).subscribe(back => {
         this.count = back;
         this.changePageLi();
       });
@@ -153,9 +153,9 @@ export class CartComponent implements OnInit {
       drivername: this.userKeyupDrivername
     }
     // @ts-ignore
-    this.http.get('Driver/findDriverByName', {params: requestParam}).subscribe(data => {
+    this.http.get('api/Driver/findDriverByName', {params: requestParam}).subscribe(data => {
       this.drivers = data;
-      this.http.get('Driver/drivernameCount', {params: requestParam2}).subscribe(back => {
+      this.http.get('api/Driver/drivernameCount', {params: requestParam2}).subscribe(back => {
         this.count = back;
         this.changePageLi();
       });
@@ -251,7 +251,7 @@ export class CartComponent implements OnInit {
         drivernationality: this.drivernationality,
         driverimage: $('.picture').find('img').attr('src')
       }
-      this.http.get('Driver/addDriver/', {params: requertParams})
+      this.http.get('api/Driver/addDriver/', {params: requertParams})
         .subscribe(data => {
           const respose: any = data;
           if (respose.back === '添加驾驶员成功!') {
@@ -277,7 +277,7 @@ export class CartComponent implements OnInit {
       alert('请选择需要删除的驾驶员!');
     } else {
       for (const i of allCheckedDriver) {
-        this.http.get('Driver/deleteDriverById/' + i.parentElement.nextElementSibling.innerHTML).subscribe(data => {
+        this.http.get('api/Driver/deleteDriverById/' + i.parentElement.nextElementSibling.innerHTML).subscribe(data => {
           const respose: any = data;
           alert(respose.back);
           this.getData();
@@ -294,7 +294,7 @@ export class CartComponent implements OnInit {
     const checkedDriver = $('input[type="checkbox"]:checked');
     if (checkedDriver.length === 1) {
       this.modalRef = this.modalService.show(template);
-      this.http.get('Driver/findDriverById/' + checkedDriver.parent().next().text()).subscribe(response => {
+      this.http.get('api/Driver/findDriverById/' + checkedDriver.parent().next().text()).subscribe(response => {
         const data: any = response;
         this.updateDrivername = data.drivername;
         this.updateDriversex = data.driversex;
@@ -318,7 +318,7 @@ export class CartComponent implements OnInit {
     const requestParam = {
       driverid: id
     }
-    this.http.get('Driver/getDetailDriver', {params: requestParam}).subscribe(response => {
+    this.http.get('api/Driver/getDetailDriver', {params: requestParam}).subscribe(response => {
       const data: any = response;
       this.modalRef = this.modalService.show(template);
       console.log(data);
@@ -354,7 +354,7 @@ export class CartComponent implements OnInit {
     }
     // @ts-ignore
     if (this.test6 && this.test7 && this.test8 && this.test9 && this.test10 && this.test11 ) {
-      this.http.post('Driver/updateDriver', null, {params: {driver: JSON.stringify(driver)}, responseType: 'text'})
+      this.http.post('api/Driver/updateDriver', null, {params: {driver: JSON.stringify(driver)}, responseType: 'text'})
         .subscribe(response => {
           alert(response);
           this.getData();
@@ -378,7 +378,7 @@ export class CartComponent implements OnInit {
       alert('哈哈哈');
     });*/
     $.ajax({
-      url: 'uploadPicture', async: true, type: 'POST', data: formData, contentType: false, processData: false,
+      url: 'api/uploadPicture', async: true, type: 'POST', data: formData, contentType: false, processData: false,
       success(data) {
         if (pattern.exec(data)) {
           $('.picture').find('img').attr('src', data);
@@ -393,7 +393,7 @@ export class CartComponent implements OnInit {
   addUploadPicture() {
     let driverid = '';
     $.ajax({
-      url: 'Driver/maxOfDriver', dataType: 'text', type: 'GET', async: false,
+      url: 'api/Driver/maxOfDriver', dataType: 'text', type: 'GET', async: false,
       success(data) {
         driverid = data;
       }
@@ -406,7 +406,7 @@ export class CartComponent implements OnInit {
     formdata.append('file', img);
     formdata.append('driverid', driverid);
     $.ajax({
-      url: 'uploadPicture', async: true, type: 'POST', data: formdata, contentType: false, processData: false,
+      url: 'api/uploadPicture', async: true, type: 'POST', data: formdata, contentType: false, processData: false,
       success(data) {
         if (pattern.exec(data)) {
           $('.picture').find('img').attr('src', data);
