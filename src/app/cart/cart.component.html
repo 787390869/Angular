@@ -1,7 +1,7 @@
 <div class="container-fluid">
-  <button class="btn btn-info add-book" data-toggle="modal" data-target="#myModal" (click)="openModal(template)">添加驾驶员</button>
-  <button class="btn btn-info delete-book" data-toggle="modal" data-target="#myModal2" (click)="deleteDriver()">删除驾驶员</button>
-  <button class="btn btn-info update-book" data-toggle="modal" data-target="#myModal3" (click)="openUpdateModal(template2)">编辑驾驶员信息</button>
+  <button class="btn btn-info add-book" data-toggle="modal" data-target="#myModal" (click)="openModal(template)" disabled>添加驾驶员</button>
+  <button class="btn btn-info delete-book" data-toggle="modal" data-target="#myModal2" (click)="deleteDriver()" disabled>删除驾驶员</button>
+  <button class="btn btn-info update-book" data-toggle="modal" data-target="#myModal3" (click)="openUpdateModal(template2)" disabled>编辑驾驶员信息</button>
   <div class="dropdown">
     <button class="btn btn-default size" data-toggle="dropdown">单页数量
       <span class="caret"></span></button>
@@ -62,11 +62,44 @@
       </tr>
       <tr *ngFor="let driver of drivers ">
         <th><input type="checkbox" value=""></th>
-        <th>{{driver.driverid}}</th><th>{{driver.drivername}}</th><th>{{driver.driversex}}</th><th>{{driver.drivertelnumber}}</th>
+        <th>{{driver.driverid}}</th><th (click)="openDetailModal(template3,$event)">{{driver.drivername}}</th><th>{{driver.driversex}}</th><th>{{driver.drivertelnumber}}</th>
         <th>{{driver.driverbirthday}}</th><th>{{driver.driveridentitynumber}}</th><th>{{driver.drivermaritalstatus}}</th><th>{{driver.drivercompany}}</th>
       </tr>
       </tbody>
     </table>
+
+  <!-- 详情展示 -->
+  <ng-template #template3>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">驾驶员:{{detailDrivername}}</h4>
+      <button class="close pull-right" type="button" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <table class="table table-hover table-bordered">
+        <thead>
+        <tr><th class="bg-primary" style="width: 30%;">驾驶员头像</th><th class="bg-primary" style="width: 70%;">驾驶员信息</th></tr>
+        </thead>
+        <tbody>
+        <tr><th rowspan="5"><img [attr.src]="detailsImage" class="detail-img"></th><th class="bg-info"><p>驾驶员ID:<a>{{detailDriverid}}</a></p></th></tr>
+        <tr><th class="bg-info"><p>驾驶员姓名:<a>{{detailDrivername}}</a></p></th></tr>
+        <tr><th class="bg-info"><p>性别:<a>{{detailDriversex}}</a></p></th></tr>
+        <tr><th class="bg-info"><p>国籍:<a>{{detailDrivernationality}}</a></p></th></tr>
+        <tr><th class="bg-info"><p>电话:<a>{{detailDrivertelnumber}}</a></p></th></tr>
+        <tr><th colspan="2" class="bg-info"><p>驾驶员生日:<a>{{detailDriverbirthday}}</a></p></th></tr>
+        <tr><th colspan="2" class="bg-info"><p>身份证号:<a>{{detailDriveridentitynumber}}</a></p></th></tr>
+        <tr><th colspan="2" class="bg-info"><p>学历:<a>{{detailDriveracademic}}</a></p></th></tr>
+        <tr><th colspan="2" class="bg-info"><p>英语水平:<a>{{detailDriverenglishskills}}</a></p></th></tr>
+        <tr><th colspan="2" class="bg-info"><p>婚姻状况:<a>{{detailDrivermaritalstatus}}</a></p></th></tr>
+        <tr><th colspan="2" class="bg-info"><p>所属公司:<a>{{detailDrivercompany}}</a></p></th></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalRef.hide()">确定</button>
+    </div>
+  </ng-template>
 
     <!-- Modal:添加驾驶员 -->
     <ng-template #template>
@@ -129,8 +162,8 @@
           <span class="glyphicon glyphicon-ok form-control-feedback"></span>
         </div>
         <div class="picture">
-          <input type="file" id="file" class="btn btn-default"/>
-          <img src=""/>
+          <input type="file" id="file" class="btn btn-default" (change)="addUploadPicture()"/>
+          <img src="" />
         </div>
         <div class="alert alert-danger text-center">{{condition}}</div>
         <div class="modal-footer">
@@ -202,7 +235,7 @@
           <input type="file" id="file1" name="file1" class="btn btn-default" (change)="updatePicture()"/>
           <img src=""/>
         </div>
-        <div class="alert alert-danger text-center">{{condition}}</div>
+        <div class="alert alert-danger text-center condition">{{condition}}</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalRef.hide()">关闭</button>
           <button type="button" class="btn btn-info save2" (click)="updateDriver()">保存</button>
@@ -210,3 +243,6 @@
       </div>
     </ng-template>
   </div>
+<script>
+
+</script>

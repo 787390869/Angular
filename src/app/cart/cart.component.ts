@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, TemplateRef} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, TemplateRef} from '@angular/core';
 import {CartService} from '../cart.service';
 import {ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
@@ -47,17 +47,30 @@ export class CartComponent implements OnInit {
   // 驾驶员所属公司
   drivercompany;
   // 驾驶员学历
-  driveracademic;
+  driveracademic = '';
   // 驾驶员英语水平
-  driverenglishskills;
+  driverenglishskills = '';
   // 驾驶员国籍
-  drivernationality;
+  drivernationality = '';
   // 用户键入的需要模糊查询的电话
   userKeyupTelnumber;
   // 用户键入的需要模糊查询的驾驶员姓名
   userKeyupDrivername;
   // 数据Flag 1=>所有数据 2=>根据电话查询的数据 3=>根据姓名查找的数据
   dataFlag = 1;
+  // 详情页驾驶员信息
+  detailDriverid;
+  detailDrivername;
+  detailDriversex;
+  detailDrivertelnumber;
+  detailDriverbirthday;
+  detailDrivermaritalstatus;
+  detailDriveridentitynumber;
+  detailDrivercompany;
+  detailDriveracademic = '';
+  detailDriverenglishskills = '';
+  detailDrivernationality = '';
+  detailsImage = '';
   // 编辑页面的驾驶员信息
   updateDrivername;
   updateDriversex = '男';
@@ -66,12 +79,12 @@ export class CartComponent implements OnInit {
   updateDrivermaritalstatus = '未婚';
   updateDriveridentitynumber;
   updateDrivercompany;
-  updateDriveracademic;
-  updateDriverenglishskills;
-  updateDrivernationality;
+  updateDriveracademic = '';
+  updateDriverenglishskills = '';
+  updateDrivernationality = '';
   constructor(private route: ActivatedRoute, private http: HttpClient, private modalService: BsModalService , private el: ElementRef) {
     this.getData();
-    this.http.get('api/Driver/getCountOfDriver').subscribe(data => {
+    this.http.get('Driver/getCountOfDriver').subscribe(data => {
       this.count = data;
       this.changePageLi();
     });
@@ -98,12 +111,15 @@ export class CartComponent implements OnInit {
   }
   // 所有数据的渲染
   getData() {
-    this.http.get('api/Driver/getAllDriver/' + this.currentPage + '/' + this.size + '/' + this.sort).subscribe(data => {
+    this.http.get('Driver/getAllDriver/' + this.currentPage + '/' + this.size + '/' + this.sort).subscribe(data => {
       this.drivers = data;
     });
   }
   // 根据电话号码模糊查询渲染
   telnumberSerachRender() {
+    if (this.currentPage > this.pageCount) {
+      this.currentPage = 0;
+    }
     this.dataFlag = 2;
     const requestParam = {
       drivertelnumber: this.userKeyupTelnumber,
@@ -114,9 +130,9 @@ export class CartComponent implements OnInit {
       drivertelnumber: this.userKeyupTelnumber
     }
     // @ts-ignore
-    this.http.get('api/Driver/findDriverByTel', {params: requestParam}).subscribe(data => {
+    this.http.get('Driver/findDriverByTel', {params: requestParam}).subscribe(data => {
       this.drivers = data ;
-      this.http.get('api/Driver/drivertelCount', {params: requestParam2}).subscribe(back => {
+      this.http.get('Driver/drivertelCount', {params: requestParam2}).subscribe(back => {
         this.count = back;
         this.changePageLi();
       });
@@ -124,6 +140,9 @@ export class CartComponent implements OnInit {
   }
   // 根据用户名模糊查询渲染
   drivernameSearchRender() {
+    if (this.currentPage > this.pageCount) {
+      this.currentPage = 0;
+    }
     this.dataFlag = 3;
     const requestParam = {
       drivername: this.userKeyupDrivername,
@@ -134,9 +153,9 @@ export class CartComponent implements OnInit {
       drivername: this.userKeyupDrivername
     }
     // @ts-ignore
-    this.http.get('api/Driver/findDriverByName', {params: requestParam}).subscribe(data => {
+    this.http.get('Driver/findDriverByName', {params: requestParam}).subscribe(data => {
       this.drivers = data;
-      this.http.get('api/Driver/drivernameCount', {params: requestParam2}).subscribe(back => {
+      this.http.get('Driver/drivernameCount', {params: requestParam2}).subscribe(back => {
         this.count = back;
         this.changePageLi();
       });
@@ -176,6 +195,12 @@ export class CartComponent implements OnInit {
       this.currentPage = this.currentPage - 1;
       if (this.dataFlag === 1) {
         this.getData();
+      }
+      if (this.dataFlag === 2) {
+        this.telnumberSerachRender();
+      }
+      if (this.dataFlag === 3) {
+        this.drivernameSearchRender();
       }
     }
   }
@@ -223,9 +248,10 @@ export class CartComponent implements OnInit {
         drivercompany: this.drivercompany,
         academic: this.driveracademic,
         driverenglishskills: this.driverenglishskills,
-        drivernationality: this.drivernationality
+        drivernationality: this.drivernationality,
+        driverimage: $('.picture').find('img').attr('src')
       }
-      this.http.get('api/Driver/addDriver/', {params: requertParams})
+      this.http.get('Driver/addDriver/', {params: requertParams})
         .subscribe(data => {
           const respose: any = data;
           if (respose.back === '添加驾驶员成功!') {
@@ -251,11 +277,10 @@ export class CartComponent implements OnInit {
       alert('请选择需要删除的驾驶员!');
     } else {
       for (const i of allCheckedDriver) {
-        this.http.get('api/Driver/deleteDriverById/' + i.parentElement.nextElementSibling.innerHTML).subscribe(data => {
+        this.http.get('Driver/deleteDriverById/' + i.parentElement.nextElementSibling.innerHTML).subscribe(data => {
           const respose: any = data;
           alert(respose.back);
           this.getData();
-          this.jump(1);
         });
       }
     }
@@ -269,7 +294,7 @@ export class CartComponent implements OnInit {
     const checkedDriver = $('input[type="checkbox"]:checked');
     if (checkedDriver.length === 1) {
       this.modalRef = this.modalService.show(template);
-      this.http.get('api/Driver/findDriverById/' + checkedDriver.parent().next().text()).subscribe(response => {
+      this.http.get('Driver/findDriverById/' + checkedDriver.parent().next().text()).subscribe(response => {
         const data: any = response;
         this.updateDrivername = data.drivername;
         this.updateDriversex = data.driversex;
@@ -281,10 +306,35 @@ export class CartComponent implements OnInit {
         this.updateDriveracademic = data.driveracademic;
         this.updateDriverenglishskills = data.driverenglishskills;
         this.updateDrivernationality = data.drivernationality;
+        $('.picture').find('img').attr('src', data.driverimage);
       });
     } else {
       alert('请选中一个需要编辑的用户!');
     }
+  }
+  //  打开详情框
+  openDetailModal(template: TemplateRef<any>, e) {
+    const id = e.target.previousElementSibling.innerHTML;
+    const requestParam = {
+      driverid: id
+    }
+    this.http.get('Driver/getDetailDriver', {params: requestParam}).subscribe(response => {
+      const data: any = response;
+      this.modalRef = this.modalService.show(template);
+      console.log(data);
+      this.detailDrivername = data.drivername;
+      this.detailDriversex = data.driversex;
+      this.detailDrivertelnumber = data.drivertelnumber;
+      this.detailDriverbirthday = data.driverbirthday;
+      this.detailDriveridentitynumber = data.driveridentitynumber;
+      this.detailDrivernationality = data.drivernationality;
+      this.detailDrivercompany = data.drivercompany;
+      this.detailDriveracademic = data.driveracademic;
+      this.detailDriverenglishskills = data.driverenglishskills;
+      this.detailsImage = data.driverimage;
+      this.detailDrivermaritalstatus = data.drivermaritalstatus;
+      this.detailDriverid = data.driverid;
+    });
   }
   // 修改驾驶员信息
   updateDriver() {
@@ -300,10 +350,11 @@ export class CartComponent implements OnInit {
       driveracademic : this.updateDriveracademic,
       driverenglishskills : this.updateDriverenglishskills,
       drivernationality : this.updateDrivernationality,
+      driverimage: $('.picture').find('img').attr('src')
     }
     // @ts-ignore
     if (this.test6 && this.test7 && this.test8 && this.test9 && this.test10 && this.test11 ) {
-      this.http.post('api/Driver/updateDriver', null, {params: {driver: JSON.stringify(driver)}, responseType: 'text'})
+      this.http.post('Driver/updateDriver', null, {params: {driver: JSON.stringify(driver)}, responseType: 'text'})
         .subscribe(response => {
           alert(response);
           this.getData();
@@ -321,23 +372,50 @@ export class CartComponent implements OnInit {
     // @ts-ignore
     formData.append('file', dom.files[0]);
     formData.append('driverid', $('input[type="checkbox"]:checked').parent().next().text());
-    const header = { ContentType: undefined};
+    /*const header = { ContentType: undefined};
     // @ts-ignore
     this.http.post('api/uploadPicture', null, {headers: header, params: formData}).subscribe(data => {
       alert('哈哈哈');
-    });
-   /* $.ajax({
-      url: 'api/uploadPicture', async: true, type: 'POST', data: formData, contentType: false, processData: false,
+    });*/
+    $.ajax({
+      url: 'uploadPicture', async: true, type: 'POST', data: formData, contentType: false, processData: false,
       success(data) {
         if (pattern.exec(data)) {
-          this.test11 = true;
-          $('.picture').eq(1).find('img').attr('src', data);
+          $('.picture').find('img').attr('src', data);
           $('.condition').text('正在检测...');
         } else {
-          this.test11 = false;
+          $('.condition').text(data);
         }
       }
-    });*/
+    });
+  }
+  // 新增驾驶员上传图片
+  addUploadPicture() {
+    let driverid = '';
+    $.ajax({
+      url: 'Driver/maxOfDriver', dataType: 'text', type: 'GET', async: false,
+      success(data) {
+        driverid = data;
+      }
+    });
+    const pattern = /^i.*?e/g;
+    const dom = document.getElementById('file');
+    // @ts-ignore
+    const img = dom.files[0];
+    const formdata = new FormData();
+    formdata.append('file', img);
+    formdata.append('driverid', driverid);
+    $.ajax({
+      url: 'uploadPicture', async: true, type: 'POST', data: formdata, contentType: false, processData: false,
+      success(data) {
+        if (pattern.exec(data)) {
+          $('.picture').find('img').attr('src', data);
+          $('.condition').text('正在检测...');
+        } else {
+          $('.condition').text(data);
+        }
+      }
+    });
   }
   // input框获取属性
   getInputClass(flag: boolean): string {

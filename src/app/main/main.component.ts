@@ -7,13 +7,23 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  loginUsername: any = '未登录';
+  loginUsername;
+  words: any = '未登录';
   constructor(private http: HttpClient) {
-    this.http.get('api/User/getLoginUser').subscribe(data => {
+    this.http.get('User/getLoginUser').subscribe(data => {
       if (data !== null) {
-        this.loginUsername = data;
-        this.loginUsername = this.loginUsername.username;
-        console.log(this.loginUsername);
+        const response: any = data;
+        const role = response.userRole.role;
+        this.loginUsername = response.username;
+        if (role === 'admin') {
+          this.words = '欢迎您系统管理员:' + this.loginUsername;
+          $('.add-book').removeAttr('disabled');
+          $('.delete-book').removeAttr('disabled');
+          $('.update-book').removeAttr('disabled');
+        }
+        if (role === 'driver') {
+          this.words = '欢迎您驾驶员:' + this.loginUsername;
+        }
       }
     });
   }

@@ -119,3 +119,7 @@ table tbody tr th{
   top: 0px;
   cursor: pointer;
 }
+.detail-img{
+  width: 170px;
+  height: 235px;
+}
