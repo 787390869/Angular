@@ -17,9 +17,6 @@ export class MainComponent implements OnInit {
         this.loginUsername = response.username;
         if (role === 'admin') {
           this.words = '欢迎您系统管理员:' + this.loginUsername;
-          $('.add-book').removeAttr('disabled');
-          $('.delete-book').removeAttr('disabled');
-          $('.update-book').removeAttr('disabled');
         }
         if (role === 'driver') {
           this.words = '欢迎您驾驶员:' + this.loginUsername;
@@ -28,7 +25,6 @@ export class MainComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {  }
 
 }

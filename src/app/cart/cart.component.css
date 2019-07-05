@@ -40,6 +40,7 @@ table tbody tr th{
 }
 .table{
   margin-top: 50px;
+  background: #fff;
 }
 .dropdown{
   display: block;
@@ -122,4 +123,63 @@ table tbody tr th{
 .detail-img{
   width: 170px;
   height: 235px;
+}
+.driversex{
+  margin-top: 10px;
+  width: 424px;
+}
+.drivermarry{
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 424px;
+}
+.drivername {
+  width: 424px;
+}
+.drivertelnumber{
+  width: 424px;
+  margin-left: 20px;
+}
+.driverbirthday{
+  width: 424px;
+}
+.driveridentitynumber{
+  width: 424px;
+  margin-left: 20px;
+}
+.drivercompany{
+  width: 424px;
+}
+.driveracademic{
+  width: 424px;
+  margin-left: 20px;
+}
+.driverenglishskills{
+  width: 424px;
+}
+.drivernationality{
+  width: 424px;
+  margin-left: 20px;
+}
+#image, #image2{
+  opacity: 0;
+  position: absolute;top:15px;left: 0px;
+  width:100%;
+  height: 200px;
+}
+#imagesrc, #imagesrc2{
+  width: 100%;
+  height: 200px;
+}
+.sex marry{
+  display: none;
+}
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid #42A948;
+}
+input.ng-invalid, select.ng-invalid{
+  border-left: 5px solid #a94442;
+}
+.notRequired{
+  border-left: 5px solid #42A948;
 }
