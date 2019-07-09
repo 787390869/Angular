@@ -19,10 +19,10 @@ export class LoginComponent implements OnInit {
     const username = $('.form-username').val();
     const password = $('.form-password').val();
     if (username !== '' && password !== '') {
-      this.http.get('api/User/getUserByUsernameAndPassword/' + username + '/' + password).subscribe(data => {
+      this.http.get('User/getUserByUsernameAndPassword/' + username + '/' + password).subscribe(data => {
         this.user = data;
         if (this.user !== null) {
-          this.http.get('api/User/getUserByUsername/' + this.user.username).subscribe(response => {
+          this.http.get('User/getUserByUsername/' + this.user.username).subscribe(response => {
             this.userWithRole = response;
             this.router.navigate(['/cart'] /*, this.userWithRole.authorities[0].authority, this.userWithRole.username]*/);
           });

@@ -10,7 +10,7 @@ export class MainComponent implements OnInit {
   loginUsername;
   words: any = '未登录';
   constructor(private http: HttpClient) {
-    this.http.get('api/User/getLoginUser').subscribe(data => {
+    this.http.get('User/getLoginUser').subscribe(data => {
       if (data !== null) {
         const response: any = data;
         const role = response.userRole.role;

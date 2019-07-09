@@ -136,9 +136,18 @@ table tbody tr th{
 .drivername {
   width: 424px;
 }
+.drivernameerror{
+  width:424px;
+  float: left;
+}
 .drivertelnumber{
   width: 424px;
   margin-left: 20px;
+}
+.drivertelerror{
+  width: 424px;
+  margin-left: 20px;
+  float: right;
 }
 .driverbirthday{
   width: 424px;
@@ -183,3 +192,14 @@ input.ng-invalid, select.ng-invalid{
 .notRequired{
   border-left: 5px solid #42A948;
 }
+.condition{
+  width: 761px;
+  margin-left: 54px;
+  height: 34px;
+  text-align: center;
+  line-height: 5px;
+}
+.closeadd{
+  position: absolute;left:830px;top:557px;
+}
+
