@@ -318,11 +318,19 @@ export class CartComponent implements OnInit {
   }
   // 获取新增框验证状态
   getAddModalValid(inputName) {
-    return this.driverForm.get(inputName).valid;
+    if (this.driverForm.get(inputName).valid === false && this.driverForm.get(inputName).dirty === true) {
+      return false;
+    } else {
+      return true;
+    }
   }
   // 获取编辑框验证状态
   getUpdateModelValid(inputName) {
-    return this.updateDriverForm.get(inputName).valid;
+    if (this.updateDriverForm.get(inputName).valid === false && this.updateDriverForm.get(inputName).dirty === true) {
+      return false;
+    } else {
+      return true;
+    }
   }
   // 打开大号新增框
   openBigModal(template: TemplateRef<any>) {

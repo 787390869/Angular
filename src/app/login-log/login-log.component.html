@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <table class="table table-hover table-bordered">
+    <thead><tr class="bg-info"><th>操作时间</th><th>操作员</th><th>操作内容</th><th>MQ生产者生产时间</th><th>MQ消息者消费时间</th><th>消费者拿到的消息里的时间</th></tr></thead>
+    <tbody>
+    <tr *ngFor="let driverLog of driverLogs">
+      <th>{{driverLog.doupdateTime}}</th>
+      <th>{{driverLog.adminName}}</th>
+      <th>{{driverLog.updateMessage}}</th>
+      <th>{{driverLog.sendMessageTime}}</th>
+      <th>{{driverLog.doupdateTime}}</th>
+      <th>{{driverLog.timeinmessage}}</th>
+    </tr>
+    </tbody>
+  </table>
+</div>

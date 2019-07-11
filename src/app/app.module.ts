@@ -13,6 +13,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ElementRef} from '@angular/core';
+import { LoginLogComponent } from './login-log/login-log.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {ElementRef} from '@angular/core';
     MainComponent,
     LoginComponent,
     UsedCarComponent,
+    LoginLogComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +33,7 @@ import {ElementRef} from '@angular/core';
       {path: 'login', component: LoginComponent},
       {path: 'cart', component: CartComponent}, // :authority/:username
       {path: 'usedcar', component: UsedCarComponent},
+      {path: 'SystemLog', component: LoginLogComponent}
     ]),
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
