@@ -28,13 +28,6 @@ import { LoginLogComponent } from './login-log/login-log.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    RouterModule.forRoot([
-      {path: '', component: CartComponent},
-      {path: 'login', component: LoginComponent},
-      {path: 'cart', component: CartComponent}, // :authority/:username
-      {path: 'usedcar', component: UsedCarComponent},
-      {path: 'SystemLog', component: LoginLogComponent}
-    ]),
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     FormsModule,

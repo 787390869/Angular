@@ -12,7 +12,7 @@ export class LoginLogComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get('Driver/getLog').subscribe(data => {
+    this.http.get('api/Driver/getLog').subscribe(data => {
       this.driverLogs = data;
     });
   }

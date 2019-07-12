@@ -103,12 +103,12 @@ export class CartComponent implements OnInit {
     });
     // 开局绑定数据
     this.getData();
-    this.http.get('Driver/getCountOfDriver').subscribe(data => {
+    this.http.get('api/Driver/getCountOfDriver').subscribe(data => {
       this.count = data;
       this.changePageLi();
     });
     // 查询当前登录用户
-    this.http.get('User/getLoginUser').subscribe(data => {
+    this.http.get('api/User/getLoginUser').subscribe(data => {
       if (data !== null) {
         const response: any = data;
         const role = response.userRole.role;
@@ -140,7 +140,7 @@ export class CartComponent implements OnInit {
   }
   // 分页数据的渲染
   getData() {
-    this.http.get('Driver/getAllDriver/' + this.currentPage + '/' + this.size + '/' + this.sort).subscribe(data => {
+    this.http.get('api/Driver/getAllDriver/' + this.currentPage + '/' + this.size + '/' + this.sort).subscribe(data => {
       this.drivers = data;
     });
   }
@@ -163,9 +163,9 @@ export class CartComponent implements OnInit {
       drivertelnumber: this.userKeyupTelnumber
     }
     // @ts-ignore
-    this.http.get('Driver/findDriverByTel', {params: requestParam}).subscribe(data => {
+    this.http.get('api/Driver/findDriverByTel', {params: requestParam}).subscribe(data => {
       this.drivers = data ;
-      this.http.get('Driver/drivertelCount', {params: requestParam2}).subscribe(back => {
+      this.http.get('api/Driver/drivertelCount', {params: requestParam2}).subscribe(back => {
         this.count = back;
         this.changePageLi();
       });
@@ -189,9 +189,9 @@ export class CartComponent implements OnInit {
       drivername: this.userKeyupDrivername
     }
     // @ts-ignore
-    this.http.get('Driver/findDriverByName', {params: requestParam}).subscribe(data => {
+    this.http.get('api/Driver/findDriverByName', {params: requestParam}).subscribe(data => {
       this.drivers = data;
-      this.http.get('Driver/drivernameCount', {params: requestParam2}).subscribe(back => {
+      this.http.get('api/Driver/drivernameCount', {params: requestParam2}).subscribe(back => {
         this.count = back;
         this.changePageLi();
       });
@@ -292,7 +292,7 @@ export class CartComponent implements OnInit {
   }
   // 新增驾驶员
   addDriver() {
-    this.http.get('Driver/addDriver',
+    this.http.get('api/Driver/addDriver',
       {params: {driver: JSON.stringify(this.driverForm.value), imgSrc: document.getElementById('imagesrc').getAttribute('src')}})
       .subscribe(data => {
         const response: any = data;
@@ -307,7 +307,7 @@ export class CartComponent implements OnInit {
     } else {
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.checkboxList.length ; i++) {
-        this.http.get('Driver/deleteDriverById/' + this.checkboxList[i]).subscribe(data => {
+        this.http.get('api/Driver/deleteDriverById/' + this.checkboxList[i]).subscribe(data => {
           const respose: any = data;
           alert(respose.back);
           this.getData();
@@ -342,19 +342,21 @@ export class CartComponent implements OnInit {
     if (this.checkboxList.length === 1) {
       this.modalRef = this.modalService.show(template,
         Object.assign({}, {class: 'gray modal-lg'}));
-      this.http.get('Driver/findDriverById/' + this.checkboxList[0]).subscribe(response => {
+      this.http.get('api/Driver/findDriverById/' + this.checkboxList[0]).subscribe(response => {
         const data: any = response;
         console.log(data);
-        this.updateDriverForm.patchValue({drivername: data.drivername});
-        this.updateDriverForm.patchValue({driversex: data.driversex});
-        this.updateDriverForm.patchValue({drivertelnumber: data.drivertelnumber});
-        this.updateDriverForm.patchValue({driverbirthday: data.driverbirthday});
-        this.updateDriverForm.patchValue({driveridentitynumber: data.driveridentitynumber});
-        this.updateDriverForm.patchValue({drivernationality: data.drivernationality});
-        this.updateDriverForm.patchValue({drivercompany: data.drivercompany});
-        this.updateDriverForm.patchValue({driveracademic: data.driveracademic});
-        this.updateDriverForm.patchValue({driverenglishskills: data.driverenglishskills});
-        this.updateDriverForm.patchValue({drivermaritalstatus: data.drivermaritalstatus});
+        this.updateDriverForm.patchValue({
+          drivername: data.drivername,
+          driversex: data.driversex,
+          drivertelnumber: data.drivertelnumber,
+          driverbirthday: data.driverbirthday,
+          driveridentitynumber: data.driveridentitynumber,
+          drivernationality: data.drivernationality,
+          drivercompany: data.drivercompany,
+          driveracademic: data.driveracademic,
+          driverenglishskills: data.driverenglishskills,
+          drivermaritalstatus: data.drivermaritalstatus
+        });
         document.getElementById('imagesrc2').setAttribute('src', data.driverimage);
       });
     } else {
@@ -367,7 +369,7 @@ export class CartComponent implements OnInit {
     const requestParam = {
       driverid: id
     }
-    this.http.get('Driver/getDetailDriver', {params: requestParam}).subscribe(response => {
+    this.http.get('api/Driver/getDetailDriver', {params: requestParam}).subscribe(response => {
       const data: any = response;
       this.modalRef = this.modalService.show(template);
       console.log(data);
@@ -387,7 +389,7 @@ export class CartComponent implements OnInit {
   }
   // 修改驾驶员信息
   updateDriver1() {
-    this.http.post('Driver/updateDriver', null,
+    this.http.post('api/Driver/updateDriver', null,
       {params: {driver: JSON.stringify(this.updateDriverForm.value), imgSrc: document.getElementById('imagesrc2').getAttribute('src'),
           driverid: this.checkboxList[0]}, responseType: 'text'
       })
@@ -413,7 +415,7 @@ export class CartComponent implements OnInit {
       alert('哈哈哈');
     });*/
     $.ajax({
-      url: 'uploadPicture', async: true, type: 'POST', data: formData, contentType: false, processData: false,
+      url: 'api/uploadPicture', async: true, type: 'POST', data: formData, contentType: false, processData: false,
       success(data) {
         if (pattern.exec(data)) {
           $('#imagesrc2').attr('src', data);
@@ -427,7 +429,7 @@ export class CartComponent implements OnInit {
   addUploadPicture() {
     let driverid = '';
     $.ajax({
-      url: 'Driver/maxOfDriver', dataType: 'text', type: 'GET', async: false,
+      url: 'api/Driver/maxOfDriver', dataType: 'text', type: 'GET', async: false,
       success(data) {
         driverid = data;
       }
@@ -440,7 +442,7 @@ export class CartComponent implements OnInit {
     formdata.append('file', img);
     formdata.append('driverid', driverid);
     $.ajax({
-      url: 'uploadPicture', async: true, type: 'POST', data: formdata, contentType: false, processData: false,
+      url: 'api/uploadPicture', async: true, type: 'POST', data: formdata, contentType: false, processData: false,
       success(data) {
         if (pattern.exec(data)) {
           $('#imagesrc').attr('src', data);
