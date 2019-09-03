@@ -9,7 +9,7 @@ const routes: Routes = [
   {path: '', component: CartComponent},
   {path: 'login', component: LoginComponent},
   {path: 'cart', component: CartComponent}, // :authority/:username
-  {path: 'usedcar', component: UsedCarComponent},
+  {path: 'usedcar', component: UsedCarComponent, pathMatch: 'full'},
   {path: 'SystemLog', component: LoginLogComponent}
 ];
 

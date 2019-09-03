@@ -1,5 +1,5 @@
-<div class="container-fluid">
-  <button class="btn btn-info add-book" data-toggle="modal" data-target="#myModal" (click)="openBigModal(template)" [disabled]="ischecked">添加驾驶员</button>
+
+  <!--<button class="btn btn-info add-book" data-toggle="modal" data-target="#myModal" (click)="openBigModal(template)" [disabled]="ischecked">添加驾驶员</button>
   <button class="btn btn-info delete-book" data-toggle="modal" data-target="#myModal2" (click)="deleteDriver()" [disabled]="ischecked">删除驾驶员</button>
   <button class="btn btn-info update-book" data-toggle="modal" data-target="#myModal3" (click)="openUpdateModal(template4)" [disabled]="ischecked">编辑驾驶员信息</button>
   <div class="dropdown">
@@ -67,6 +67,86 @@
       </tr>
       </tbody>
     </table>
+-->
+  <div class="route">
+    <div class="table-title">
+      <div class="title">
+        <i class="iconfont icon-order"></i>
+        <span>User Table</span>
+      </div>
+      <div class="jump-page">
+        <div class="input-group-addon">页码</div>
+        <input class="form-control" [(ngModel)]="currentPage" (change)="jumpInput()">
+      </div>
+      <div class="pageli">
+        <ul class="pagination">
+          <li (click)="last()"><a><span>上一页</span></a></li>
+          <li><a *ngFor="let pagenumber of pageli" (click)="jump( $event )">{{pagenumber}}</a></li>
+          <li (click)="next()"><a><span>下一页</span></a></li>
+        </ul>
+      </div>
+      <div class="buttons">
+        <ul class="handle">
+          <li><button class="btn btn-success" (click)="openBigModal(template)" [disabled]="ischecked"><i class="iconfont icon-tianjia">添加</i></button></li>
+          <li><button class="btn btn-info" (click)="openUpdateModal(template4)" [disabled]="ischecked"><i class="iconfont icon-bianji">编辑</i></button></li>
+          <li><button class="btn btn-danger" (click)="deleteDriver()" [disabled]="ischecked"><i class="iconfont icon-shanchu">删除</i></button></li>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-default sort" data-toggle="dropdown">排序方式
+          <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a (click)="changeSort(1)"><i class="iconfont icon-paixu-shuliangshengxu"></i>按Id升序排序</a></li>
+          <li><a (click)="changeSort(0)"><i class="iconfont icon-paixu-shuliangjiangxu"></i>按Id降序排序</a></li>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-default sort" data-toggle="dropdown">每一页数量
+          <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a (click)="changeSize(5)">5</a></li>
+          <li><a (click)="changeSize(10)">10</a></li>
+          <li><a (click)="changeSize(20)">20</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr>
+    <div class="data-search">
+      <div class="search-input">
+        <input class="form-control" placeholder="驾驶员姓名检索..." [(ngModel)]="userKeyupDrivername">
+        <div class="search-drivername" (click)="drivernameSearchRender()">
+          <i class="iconfont icon-sousuo"></i>
+        </div>
+      </div>
+      <div class="search-input">
+        <input class="form-control" placeholder="驾驶员电话检索..." [(ngModel)]="userKeyupTelnumber">
+        <div class="search-drivername" (click)="telnumberSerachRender()">
+          <i class="iconfont icon-sousuo"></i>
+        </div>
+      </div>
+    </div>
+    <table class="table table-bordered table-hover">
+      <thead>
+      <tr class="info">
+        <th></th><th><i class="iconfont icon-ID"></i><span>ID</span></th>
+        <th><i class="iconfont icon-xingming"></i><span>姓名</span></th>
+        <th><i class="iconfont icon-xingbie"></i><span>性别</span></th>
+        <th><i class="iconfont icon-icon-test"></i><span>电话号码</span></th>
+        <th><i class="iconfont icon-shengri"></i><span>生日</span></th>
+        <th><i class="iconfont icon-credentials_icon"></i><span>身份证号</span></th>
+        <th><i class="iconfont icon-hunyindengji"></i><span>婚姻状况</span></th>
+        <th><i class="iconfont icon-gongsi"></i><span>公司</span></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let driver of drivers ">
+        <th><input type="checkbox" class="checkbox" (change)="putCheckboxInList($event)" value=""></th>
+        <th>{{driver.driverid}}</th><th (click)="openDetailModal(template3,$event)">{{driver.drivername}}</th><th>{{driver.driversex}}</th><th>{{driver.drivertelnumber}}</th>
+        <th>{{driver.driverbirthday}}</th><th>{{driver.driveridentitynumber}}</th><th>{{driver.drivermaritalstatus}}</th><th>{{driver.drivercompany}}</th>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
   <!-- 详情展示 -->
   <ng-template #template3>
@@ -77,22 +157,22 @@
       </button>
     </div>
     <div class="modal-body">
-      <table class="table table-hover table-bordered">
+      <table class="table table-hover table-bordered table-striped">
         <thead>
-        <tr><th class="bg-primary" style="width: 30%;">驾驶员头像</th><th class="bg-primary" style="width: 70%;">驾驶员信息</th></tr>
+        <tr><th class="bg-primary" style="width: 30%;"><i class="iconfont icon-profile"></i>驾驶员头像</th><th class="bg-primary" style="width: 70%;"><i class="iconfont icon-shuju"></i>驾驶员信息</th></tr>
         </thead>
         <tbody>
-        <tr><th rowspan="5"><img [attr.src]="detailsImage" class="detail-img"></th><th class="bg-info"><p>驾驶员ID:<a>{{detailDriverid}}</a></p></th></tr>
-        <tr><th class="bg-info"><p>驾驶员姓名:<a>{{detailDrivername}}</a></p></th></tr>
-        <tr><th class="bg-info"><p>性别:<a>{{detailDriversex}}</a></p></th></tr>
-        <tr><th class="bg-info"><p>国籍:<a>{{detailDrivernationality}}</a></p></th></tr>
-        <tr><th class="bg-info"><p>电话:<a>{{detailDrivertelnumber}}</a></p></th></tr>
-        <tr><th colspan="2" class="bg-info"><p>驾驶员生日:<a>{{detailDriverbirthday}}</a></p></th></tr>
-        <tr><th colspan="2" class="bg-info"><p>身份证号:<a>{{detailDriveridentitynumber}}</a></p></th></tr>
-        <tr><th colspan="2" class="bg-info"><p>学历:<a>{{detailDriveracademic}}</a></p></th></tr>
-        <tr><th colspan="2" class="bg-info"><p>英语水平:<a>{{detailDriverenglishskills}}</a></p></th></tr>
-        <tr><th colspan="2" class="bg-info"><p>婚姻状况:<a>{{detailDrivermaritalstatus}}</a></p></th></tr>
-        <tr><th colspan="2" class="bg-info"><p>所属公司:<a>{{detailDrivercompany}}</a></p></th></tr>
+        <tr><th rowspan="5"><img [attr.src]="detailsImage" class="detail-img"></th><th class="bg-info"><p><i class="iconfont icon-ID"></i><span>驾驶员ID:<a>{{detailDriverid}}</a></span></p></th></tr>
+        <tr><th class="bg-info"><p><i class="iconfont icon-xingming"></i><span>驾驶员姓名:<a>{{detailDrivername}}</a></span></p></th></tr>
+        <tr><th class="bg-info"><p><i class="iconfont icon-xingbie"></i><span>性别:<a>{{detailDriversex}}</a></span></p></th></tr>
+        <tr><th class="bg-info"><p><i class="iconfont icon-guojia"></i><span>国籍:<a>{{detailDrivernationality}}</a></span></p></th></tr>
+        <tr><th class="bg-info"><p><i class="iconfont icon-icon-test"></i><span>电话:<a>{{detailDrivertelnumber}}</a></span></p></th></tr>
+        <tr><th colspan="2" class="bg-info"><p><i class="iconfont icon-shengri"></i><span>驾驶员生日:<a>{{detailDriverbirthday}}</a></span></p></th></tr>
+        <tr><th colspan="2" class="bg-info"><p><i class="iconfont icon-credentials_icon"></i><span>身份证号:<a>{{detailDriveridentitynumber}}</a></span></p></th></tr>
+        <tr><th colspan="2" class="bg-info"><p><i class="iconfont icon-xueli"></i><span>学历:<a>{{detailDriveracademic}}</a></span></p></th></tr>
+        <tr><th colspan="2" class="bg-info"><p><i class="iconfont icon-yingyu"></i><span>英语水平:<a>{{detailDriverenglishskills}}</a></span></p></th></tr>
+        <tr><th colspan="2" class="bg-info"><p><i class="iconfont icon-hunyindengji"></i><span>婚姻状况:<a>{{detailDrivermaritalstatus}}</a></span></p></th></tr>
+        <tr><th colspan="2" class="bg-info"><p><i class="iconfont icon-gongsi"></i><span>所属公司:<a>{{detailDrivercompany}}</a></span></p></th></tr>
         </tbody>
       </table>
     </div>
@@ -241,4 +321,3 @@
       <button type="button" class="btn-default btn pull-right" (click)="modalRef.hide(); driverForm.reset()">关闭</button>
     </div>
   </ng-template>
-  </div>

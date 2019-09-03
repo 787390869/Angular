@@ -1,4 +1,4 @@
-.navbar-nav a{
+/*.navbar-nav a{
   cursor: pointer;
 }
 .user{
@@ -12,4 +12,225 @@
   vertical-align: center;
   width: 150px;
   padding-top: 15px;
+}*/
+@import "../../assets/font_g34q13x5lr/iconfont.css";
+.web{
+  margin: 0;
+  padding: 0;
+}
+.topbar{
+  width:100%;
+  height: 45px;
+  background: #438EB9;
+}
+.topbar .icon-icon{
+  display: block;
+  float: left;
+  color: white;
+  margin-left: 30px;
+  font-size: 30px;
+}
+.topbar strong{
+  margin-left: 10px;
+  font-size: 30px;
+  float: left;
+  color: white;
+  font-family: 幼圆;
+}
+.topbar ul{
+  list-style: none;
+  color: white;
+}
+.topbar ul li{
+  width: 60px;
+  height: 45px;
+  display: inline;
+  float: right;
+  white-space: nowrap;
+}
+.topbar ul li i{
+  font-size: 28px;
+  text-align: center;
+  padding-left: 5px;
+  cursor: pointer;
+}
+.topbar ul li span{
+  cursor: pointer;
+}
+.topbar ul li span{
+  padding-top: 5px;
+  margin-top: -15px;
+}
+.topbar ul li:last-child{
+  background: #4B4B4B;
+}
+.topbar ul li:nth-child(2){
+  background: #2C7659;
+}
+.topbar ul li:nth-child(2) span{
+  background: #82AF6F;
+}
+.topbar ul li:nth-child(3){
+  background: #762C59;
+}
+.topbar ul li:nth-child(3) span{
+  background: #D15B47;
+}
+.topbar ul li:first-child{
+  background: #8118c8;
+  width: 120px;
+}
+.topbar ul li:first-child img{
+  overflow: hidden;
+  border-radius: 50%;
+  width: 50px;
+  height:45px;
+}
+.topbar ul li:first-child a{
+  color: white;
+  cursor: pointer;
+  margin-left: 5px;
+  font-family: 幼圆;
+  font-size: 15px;
+}
+.body{
+  width: 100%;
+  height: 600px;
+  display: inline;
+}
+.nav{
+  width: 10%;
+  height: 1000px;
+  display: block;
+  float: left;
+}
+.nav .settings{
+  width: 100%;
+  height: 40px;
+  background: #FFFFFF;
+  border: 1px solid #F5F5F5;
+}
+.nav button{
+  margin-left: 5px;
+  border-radius: 0;
+}
+.router{
+  display: block;
+  float: left;
+  width: 90%;
+  height: 560px;
+}
+.menu{
+  background: #F5F5F5;
+  display: block;
+  float: left;
+  width: 100%;
+  height: 7%;
+}
+.menu .way{
+  display: block;
+  float: left;
+  width: 30%;
+  list-style: none;
+}
+.menu .way li{
+  margin-left: 10px;
+  display: inline;
+  width: 72px;
+  height: 40px;
+  color: #67b0e7;
+  cursor: pointer;
+  font-family: 幼圆;
+}
+.menu .way li a{
+  font-size: 15px;
+}
+.menu .way li span{
+  color: #9a8b85;
+}
+.menu .way li i{
+  font-size: 28px;
+}
+.menu .way li:first-child{
+
+}
+
+.menu .search{
+  float: right;
+  width: 20%;
+  height: 40px;
+}
+.menu .search input{
+  margin-left: 35px;
+  display: block;
+  float: left;
+  width: 200px;
+  margin-top: 1px;
+}
+.menu .search .button{
+  border: 1px solid #F8F8F8;
+  float: left;
+  width: 50px;
+  margin-top: 1px;
+  margin-left: -50px;
+  height: 32px;
+  text-align: center;
+}
+.menu .search i{
+  color: #67b0e7;
+  cursor: pointer;
+  font-size: 25px;
+}
+/*.route .handle {
+   width: 20%;
+   float: left;
+   display: block;
+   margin-right: 100px;
+   list-style: none;
+ }
+.route .handle li {
+  margin-left: 20px;
+  width: 72px;
+  height: 40px;
+  display: inline;
+  float: left;
+}
+.route .handle li button{
+  border-radius: 0%;
+  margin-top: 1px;
+}
+.route .pagination{
+  margin-top: 2px;
+}
+.route .pagination li{
+  cursor: pointer;
+}*/
+accordion-group{
+  border-radius: 0%;
+}
+accordion-group i{
+  font-size: 20px;
+  color: #9a8b85;
+}
+accordion-group span{
+  color: #9a8b85;
+  margin-left: 10px;
+  font-family: 幼圆;
+}
+accordion-group .glyphicon{
+  margin-left: 40px;
+}
+accordion-group p{
+  font-family: 幼圆;
+  cursor: pointer;
+  margin-top: -8px;
+  margin-left: -20px;
+  width:190px;
+  height: 30px;
+  border: #9a8b85 solid 1px;
+  background: #F5F5F5;
+  text-align: center;
+}
+accordion-group p:first-child{
+  margin-top: -15px;
 }

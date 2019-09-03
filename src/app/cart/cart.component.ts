@@ -344,7 +344,6 @@ export class CartComponent implements OnInit {
         Object.assign({}, {class: 'gray modal-lg'}));
       this.http.get('api/Driver/findDriverById/' + this.checkboxList[0]).subscribe(response => {
         const data: any = response;
-        console.log(data);
         this.updateDriverForm.patchValue({
           drivername: data.drivername,
           driversex: data.driversex,
@@ -372,7 +371,6 @@ export class CartComponent implements OnInit {
     this.http.get('api/Driver/getDetailDriver', {params: requestParam}).subscribe(response => {
       const data: any = response;
       this.modalRef = this.modalService.show(template);
-      console.log(data);
       this.detailDrivername = data.drivername;
       this.detailDriversex = data.driversex;
       this.detailDrivertelnumber = data.drivertelnumber;

@@ -1,36 +1,132 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand">驾驶员管理系统</a>
-    </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a [routerLink]="['/login']">登录</a></li>
-        <li><a [routerLink]="['/usedcar']">注册</a></li>
-        <li><a [routerLink]="['/cart']" >驾驶员信息</a></li>
-        <li><a [routerLink]="['/SystemLog']">系统日志</a></li>
-      </ul>
-      <form class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+<div class="web">
+  <div class="topbar">
+    <i class="iconfont icon-icon"></i>
+    <strong>Driver Manager</strong>
+    <ul>
+      <li class="dropdown" dropdown>
+        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <img [attr.src]="imageurl">
+          {{loginUsername}}
+        </a>
+        <ul class="dropdown-menu">
+          <li><a>头像</a></li>
+          <li><a>设置</a></li>
+          <li><a>注销</a></li>
+        </ul>
+      </li>
+      <li><i class="iconfont icon-youjian"></i><span class="badge">15</span></li>
+      <li><i class="iconfont icon-xiaoxi"></i><span class="badge">3</span></li>
+      <li>
+        <i class="iconfont icon-cansaitubiaozhuanqu-"></i>
+        <span class="badge">4</span>
+      </li>
+    </ul>
+  </div>
+  <div class="body">
+    <div class="nav">
+      <div class="settings">
+        <button class="btn btn-success"><i class="iconfont icon-iconset0358"></i></button>
+        <button class="btn btn-info"><i class="iconfont icon-qianming"></i></button>
+        <button class="btn btn-warning"><i class="iconfont icon-yunyingzhongxin"></i></button>
+        <button class="btn btn-danger"><i class="iconfont icon-shezhi"></i></button>
+      </div>
+
+      <accordion [isAnimated]="true">
+        <accordion-group [routerLink]="['/login']" [isDisabled]="true" (click)="changeUrl(1)">
+        <div accordion-heading>
+          <i class="iconfont icon-denglvlingpai"></i>
+          <span>API监控</span>
+          <div class="glyphicon glyphicon-chevron-down"></div>
         </div>
-        <button type="button" class="btn btn-default">搜索</button>
-      </form>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a>{{words}}</a></li>
-        <li><a>合作连接</a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">关于我们<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a>Action</a></li>
-            <li><a>Another action</a></li>
-            <li><a>Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a>Separated link</a></li>
-          </ul>
-        </li>
-      </ul>
+      </accordion-group>
+        <accordion-group [routerLink]="['/usedcar']" [isDisabled]="true" (click)="changeUrl(2)">
+          <div accordion-heading>
+            <i class="iconfont icon-zhuce"></i>
+            <span>链路追踪</span>
+            <div class="glyphicon glyphicon-chevron-down"></div>
+          </div>
+        </accordion-group>
+        <accordion-group [routerLink]="['/']" [isDisabled]="true" (click)="changeUrl(3)">
+          <div accordion-heading>
+            <i class="iconfont icon-shuju"></i>
+            <span>数据管理</span>
+            <div class="glyphicon glyphicon-chevron-down"></div>
+          </div>
+          右图是驾驶员信息
+        </accordion-group>
+        <accordion-group [routerLink]="['/SystemLog']" [isDisabled]="true" (click)="changeUrl(4)">
+        <div accordion-heading>
+          <i class="iconfont icon-rizhi"></i>
+          <span>系统日志</span>
+          <div class="glyphicon glyphicon-chevron-down"></div>
+        </div>
+          右图是系统近三天日志
+      </accordion-group>
+        <accordion-group (click)="changeUrl(5)">
+          <div accordion-heading>
+            <i class="iconfont icon-yonghu"></i>
+            <span>用户管理</span>
+            <div class="glyphicon glyphicon-chevron-down"></div>
+          </div>
+          This is User Manager
+        </accordion-group>
+        <accordion-group (click)="changeUrl(6)">
+          <div accordion-heading>
+            <i class="iconfont icon-xiaoxi1"></i>
+            <span>用户回复</span>
+            <div class="glyphicon glyphicon-chevron-down"></div>
+          </div>
+          This is UserReply Manager
+        </accordion-group>
+        <accordion-group (click)="changeUrl(7)">
+          <div accordion-heading>
+            <i class="iconfont icon-pinglun"></i>
+            <span>用户评论</span>
+            <div class="glyphicon glyphicon-chevron-down"></div>
+          </div>
+          This is UserComment Manager
+        </accordion-group>
+        <accordion-group (click)="changeUrl(8)">
+          <div accordion-heading>
+            <i class="iconfont icon-wenhao-"></i>
+            <span>用户提问</span>
+            <div class="glyphicon glyphicon-chevron-down"></div>
+          </div>
+          This is UserQuestion Manager
+        </accordion-group>
+        <accordion-group (click)="changeUrl(9)">
+          <div accordion-heading>
+            <i class="iconfont icon-xiaoxi"></i>
+            <span>消息系统</span>
+            <div class="glyphicon glyphicon-chevron-down"></div>
+          </div>
+          This is Message System
+        </accordion-group>
+        <accordion-group (click)="changeUrl(10)">
+          <div accordion-heading>
+            <i class="iconfont icon-order"></i>
+            <span>订单系统</span>
+            <div class="glyphicon glyphicon-chevron-down"></div>
+          </div>
+          <p>This is Order Manager</p>
+          <p>This is Order Manager</p>
+        </accordion-group>
+
+
+      </accordion>
+    </div>
+    <div class="router">
+      <div class="menu">
+        <ul class="way">
+          <li><i class="iconfont icon-jia"><a>Home</a></i></li>
+          <li><span class="glyphicon glyphicon-forward"> {{url}} </span></li>
+        </ul>
+        <div class="search">
+          <input class="form-control" placeholder="Search...">
+          <div class="button"><i class="iconfont icon-sousuo"></i></div>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
     </div>
   </div>
-</nav>
-<router-outlet></router-outlet>
+</div>

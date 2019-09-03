@@ -1,6 +1,9 @@
-
+@import "../../assets/font_g34q13x5lr/iconfont.css";
 .table{
   cursor: pointer;
   font-family: 幼圆;
   font-size: 15px;
+}
+.table span{
+  margin-left: 5px;
 }

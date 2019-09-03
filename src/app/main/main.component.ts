@@ -8,7 +8,21 @@ import {HttpClient} from '@angular/common/http';
 })
 export class MainComponent implements OnInit {
   loginUsername;
+  imageurl = 'image/panda.jpg';
   words: any = '未登录';
+  private way = {
+    1 : 'User Login',
+    2 : 'User Register',
+    3 : 'Data Management',
+    4 : 'System Log',
+    5 : 'User Management',
+    6 : 'User Reply',
+    7 : 'User Comment',
+    8 : 'User Question',
+    9 : 'Message System',
+    10 : 'Order System'
+  };
+  private url = this.way['3'];
   constructor(private http: HttpClient) {
     this.http.get('api/User/getLoginUser').subscribe(data => {
       if (data !== null) {
@@ -26,5 +40,7 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {  }
-
+  changeUrl(num) {
+    this.url = this.way[num];
+  }
 }

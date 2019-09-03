@@ -10,6 +10,6 @@ export class UsedCarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    window.location.replace('http://localhost:9411');
   }
-
 }

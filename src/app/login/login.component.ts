@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.location.replace('http://localhost/hystrix');
   }
   doLogin() {
     const username = $('.form-username').val();

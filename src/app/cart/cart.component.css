@@ -1,3 +1,4 @@
+@import "../../assets/font_g34q13x5lr/iconfont.css";
 .pages ul{
   display: block;
   margin: 5px 800px;
@@ -202,4 +203,196 @@ input.ng-invalid, select.ng-invalid{
 .closeadd{
   position: absolute;left:830px;top:557px;
 }
-
+.route{
+  border: 1px solid #F5F5F5;
+  width:100%;
+  height: 93%;
+}
+.route hr{
+  width: 80%;
+  margin-left: 50px;
+}
+.route .table-title{
+  margin-top: 40px;
+  width: 100%;
+  height:50px;
+}
+.route .table-title i{
+  color: #f1b9ce;
+  cursor: pointer;
+  font-size: 30px;
+  margin-left: 47px;
+}
+.route .table-title span{
+  font-family: 幼圆;
+  font-size: 30px;
+  margin-left: 10px;
+  color: #9a8b85;
+}
+.route .jump-page{
+  width: 200px;
+  height: 50px;
+  display: block;
+  float: left;
+  margin-top: 15px;
+  margin-left: 50px;
+}
+.route .jump-page .input-group-addon{
+  cursor: pointer;
+  margin-top: 15px;
+  float: left;
+  width: 50px;
+  height: 35px;
+}
+.route .jump-page input{
+  margin-top: 15px;
+  width: 100px;
+  display: block;
+  float: left;
+  height: 35px;
+}
+.route .table-title .title{
+  display: block;
+  float: left;
+  margin-top: 20px;
+}
+.route .handle {
+  list-style: none;
+  display: block;
+  float: left;
+  margin-right: 300px;
+  margin-top: 10px;
+  width: 300px;
+}
+.route .handle li{
+  display: inline;
+}
+.route .handle button{
+  width:60px; height: 40px;
+  border-radius: 0%;
+  margin-left: 5px;
+  margin-top: 15px;
+}
+.route .handle i{
+  font-size: 15px;
+  color: white;
+  margin-left: -5px;
+}
+.route .dropdown{
+  width: 100px;
+  float: left;
+  display: block;
+  margin-top: 30px;
+  margin-left: 10px;
+}
+.route .dropdown i{
+  margin-left: 0px;
+  font-size: 15px;
+  color: black;
+}
+.route .dropdown li{
+  cursor: pointer;
+}
+.route .table{
+  width: 80%;
+  margin-left: 50px;
+  font-family: 幼圆;
+  margin-top: -5px;
+}
+.route .table-title .pageli{
+  margin-left: 50px;
+  width: 400px;
+  height: 60px;
+  display: block;
+  float: left;
+  margin-top: 5px;
+}
+.route .pagination{
+  display: block;
+  float: left;
+  width:400px;
+  margin-bottom: -10px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.route .buttons{
+  width: 240px;
+  height: 60px;
+  display: block;
+  float: left;
+}
+.route .pagination span{
+  font-family: 幼圆;
+  color: black;
+  font-size: 18px;
+  margin-left: 2px;
+}
+.route .pagination a{
+  font-family: 幼圆;
+  color: black;
+  font-size: 18px;
+  margin-left: 2px;
+}
+.route .data-search{
+  width: 1380px;
+  height: 50px;
+  margin-left: 50px;
+  margin-top: -20px;
+}
+.route .data-search .search-title i{
+  font-size: 30px;
+  color: #55acee;
+}
+.route .data-search span{
+  margin-left: 5px;
+  font-family: 幼圆;
+  font-size: 25px;
+  color: #9a8b85;
+}
+.route .search-input{
+  width: 200px;
+  height: 30px;
+  display: block;
+  float: left;
+}
+.route .search-input .form-control{
+  width: 160px;
+  height: 32px;
+  margin-top: 5px;
+  display: block;
+  float: left;
+}
+.route .search-input i{
+  font-size: 25px;
+  color: black;
+}
+.route .search-input .search-drivername{
+  width: 30px;
+  height: 32px;
+  display: block;
+  float: left;
+  margin-top: 4px;
+  margin-left: -30px;
+}
+.route table i{
+  color: black;
+  font-size: 17px;
+}
+.route table span{
+  margin-left: 10px;
+}
+.route table th:first-child{
+  width: 50px;
+  text-align: center;
+}
+.route table input[type="checkbox"]{
+  border-radius: 0%;
+  width: 15px;
+  height: 15px;
+}
+.route table th{
+  height: 20px;
+}
+.modal-body .table span{
+  margin-left: 5px;
+}
